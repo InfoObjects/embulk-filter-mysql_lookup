@@ -78,8 +78,8 @@ Gem::Specification.new do |spec|
   spec.name          = "${project.name}"
   spec.version       = "${project.version}"
   spec.authors       = ["InfoObjects Inc."]
-  spec.summary       = %[Mysql Lookup filter plugin for Embulk]
-  spec.description   = %[Mysql Lookup]
+  spec.summary       = %[An Embulk filter plugin for Lookup Transformation with MySQL database]
+  spec.description   = %[Mysql Lookup filter]
   spec.email         = ["utkarsh@infoobjects.com"]
   spec.licenses      = ["MIT"]
   spec.homepage      = "https://github.com/InfoObjects/embulk-filter-mysql_lookup"
