@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/embulk-filter-mysql_lookup.iml" filepath="$PROJECT_DIR$/.idea/embulk-filter-mysql_lookup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/embulk-filter-mysql_lookup.iml" filepath="$PROJECT_DIR$/.idea/modules/embulk-filter-mysql_lookup.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/embulk-filter-mysql_lookup.main.iml" filepath="$PROJECT_DIR$/.idea/modules/embulk-filter-mysql_lookup.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/embulk-filter-mysql_lookup.test.iml" filepath="$PROJECT_DIR$/.idea/modules/embulk-filter-mysql_lookup.test.iml" />
     </modules>
   </component>
 </project>
