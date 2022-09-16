@@ -84,7 +84,7 @@ Output File generated :-
 ​
 ​
 ```yaml
- - type: mssql_lookup
+ - type: mysql_lookup
    host: localhost
    port: 1433
    database: test
