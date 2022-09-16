@@ -77,12 +77,12 @@ task gemspec {
 Gem::Specification.new do |spec|
   spec.name          = "${project.name}"
   spec.version       = "${project.version}"
-  spec.authors       = ["Ankit Kumar"]
+  spec.authors       = ["InfoObjects Inc."]
   spec.summary       = %[Mysql Lookup filter plugin for Embulk]
   spec.description   = %[Mysql Lookup]
-  spec.email         = ["ankit.kumar@infoobjects.com"]
+  spec.email         = ["utkarsh@infoobjects.com"]
   spec.licenses      = ["MIT"]
-  spec.homepage      = "https://github.com/ankit.kumar/embulk-filter-mysql_lookup"
+  spec.homepage      = "https://github.com/InfoObjects/embulk-filter-mysql_lookup"
 
   spec.files         = `git ls-files`.split("\n") + Dir["classpath/*.jar"]
   spec.test_files    = spec.files.grep(%r"^(test|spec)/")
