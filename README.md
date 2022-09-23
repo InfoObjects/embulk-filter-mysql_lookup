@@ -1,7 +1,8 @@
 <p align="center">
   <a href="https://www.infoobjects.com/" target="blank"><img src="screenshots/logo.png" width="150" alt="InfoObjects Logo" /></a>
 </p>
-<p align="center">Infoobjects is a consulting company that helps enterprises transform how and where they run applications and infrastructure.</p>
+<p align="center">Infoobjects is a consulting company that helps enterprises transform how and where they run applications and infrastructure.
+From strategy, to implementation, to ongoing managed services, Infoobjects creates tailored cloud solutions for enterprises at all stages of the cloud journey.</p>
 
 # MYSQL lookup filter plugin for Embulk
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
