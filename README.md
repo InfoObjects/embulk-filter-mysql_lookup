@@ -1,4 +1,11 @@
+<p align="center">
+  <a href="https://www.infoobjects.com/" target="blank"><img src="screenshots/logo.png" width="150" alt="InfoObjects Logo" /></a>
+</p>
+<p align="center">Infoobjects is a consulting company that helps enterprises transform how and where they run applications and infrastructure.</p>
+
 # MYSQL lookup filter plugin for Embulk
+[![license](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
 ​
 An Embulk filter plugin for Lookup Transformation with MySQL database
 ​
@@ -131,3 +138,6 @@ Release gem:
 ```
 $ ./gradlew gemPush
 ```
+## Licensing
+
+InfoObjects [license](LICENSE) (MIT License)
