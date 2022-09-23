@@ -30,7 +30,7 @@ public class MysqlLookupFilterPlugin
         @Config("database")
         public String getDatabase();
 
-        @Config("tablename")
+        @Config("table_name")
         public String getTableName();
 
         @Config("username")

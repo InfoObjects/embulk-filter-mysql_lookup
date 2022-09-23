@@ -16,7 +16,7 @@ filters:
     host: localhost
     port: 3306
     database: information
-    tablename: country
+    table_name: country
     username: root
     password: root
     mapping_from:

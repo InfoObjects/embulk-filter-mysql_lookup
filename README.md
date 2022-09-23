@@ -8,7 +8,7 @@ An Embulk filter plugin for Lookup Transformation with MySQL database
     - **host**: database host (example `localhost`) (required)
     - **port**: database port (example port for mssql `1433`) (required
     - **database**: database name (required)
-    - **tablename**: table name of your database (required)
+    - **table_name**: table name of your database (required)
     - **username**: username for your database (required)
     - **password**: password for database (required)
     - **mapping_from**: (Name of columns to be matched with table 2 columns) (required)
