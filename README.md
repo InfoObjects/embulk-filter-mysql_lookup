@@ -13,6 +13,10 @@ An Embulk filter plugin for Lookup Transformation with MySQL database
 ## Configuration
 ​
 - **mysql_lookup**: Required attributes for the LookUp Filter Plugin -
+    - **filters**:
+        - **type**: Name of lookup type (required)
+    - **driver_path**: path to the jar file of the MySQL JDBC driver. If not set, the bundled JDBC driver (MySQL Connector/J 8.0.19) will be used (string)
+    - **driver_class**: Here we can provide driver class name,if not set,the com.mysql.cj.jdbc.Driver class will be used
     - **host**: database host (example `localhost`) (required)
     - **port**: database port (example port for mssql `1433`) (required
     - **database**: database name (required)
