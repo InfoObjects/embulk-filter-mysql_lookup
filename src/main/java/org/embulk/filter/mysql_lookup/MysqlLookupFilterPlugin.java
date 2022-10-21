@@ -1,21 +1,13 @@
 package org.embulk.filter.mysql_lookup;
 import com.google.common.collect.ImmutableList;
-import org.embulk.config.Config;
-import org.embulk.config.ConfigSource;
-import org.embulk.config.Task;
-import org.embulk.config.TaskSource;
+import org.embulk.config.*;
 import org.embulk.spi.*;
 import org.embulk.spi.time.Timestamp;
 import org.embulk.spi.type.Types;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+
+import java.sql.*;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class MysqlLookupFilterPlugin
         implements FilterPlugin {
@@ -26,6 +18,15 @@ public class MysqlLookupFilterPlugin
 
         @Config("port")
         public String getPort();
+
+        @Config("driver_path")
+        @ConfigDefault("null")
+        public Optional<String> getDriverPath();
+
+        @Config("driver_class")
+        @ConfigDefault("null")
+        public Optional<String> getDriverClass();
+
 
         @Config("database")
         public String getDatabase();
@@ -96,8 +97,22 @@ public class MysqlLookupFilterPlugin
     private Map<String, List<String>> getKeyValueMap(PluginTask task) throws SQLException {
         Map<String, List<String>> map = new HashMap<>();
         Connection con = DatabaseConnection.getConnection(task);
-        try {
+        DatabaseMetaData databaseMetaData =con.getMetaData();
+        String identifierQuoteString=databaseMetaData.getIdentifierQuoteString();
+        String schemaName=null;
 
+        if (schemaName != null) {
+            String sql = "SET search_path TO " + identifierQuoteString + schemaName + identifierQuoteString;
+            Statement stmt = con.createStatement();
+            try {
+                stmt.executeUpdate(sql);
+            } finally {
+                stmt.close();
+            }
+        }
+        con.setAutoCommit(false);
+
+        try {
             List<String> targetColumns = task.getMappingTo();
             List<String> newColumns = new ArrayList<>();
 
@@ -159,7 +174,6 @@ public class MysqlLookupFilterPlugin
         }
         return map;
     }
-
 
     public static class MyOutput implements PageOutput {
         private PageReader reader;
