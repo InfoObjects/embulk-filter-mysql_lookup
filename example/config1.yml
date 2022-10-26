@@ -15,6 +15,8 @@ filters:
   - type: mysql_lookup
     host: localhost
     port: 3306
+    driver_path: C:/Users/AnkitKumar/Desktop/embulk-plugins/mysql-connector-java-8.0.19.jar
+    driver_class: com.mysql.cj.jdbc.Driver
     database: information
     table_name: country
     username: root

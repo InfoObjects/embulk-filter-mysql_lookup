@@ -97,20 +97,6 @@ public class MysqlLookupFilterPlugin
     private Map<String, List<String>> getKeyValueMap(PluginTask task) throws SQLException {
         Map<String, List<String>> map = new HashMap<>();
         Connection con = DatabaseConnection.getConnection(task);
-        DatabaseMetaData databaseMetaData =con.getMetaData();
-        String identifierQuoteString=databaseMetaData.getIdentifierQuoteString();
-        String schemaName=null;
-
-        if (schemaName != null) {
-            String sql = "SET search_path TO " + identifierQuoteString + schemaName + identifierQuoteString;
-            Statement stmt = con.createStatement();
-            try {
-                stmt.executeUpdate(sql);
-            } finally {
-                stmt.close();
-            }
-        }
-        con.setAutoCommit(false);
 
         try {
             List<String> targetColumns = task.getMappingTo();
@@ -138,6 +124,8 @@ public class MysqlLookupFilterPlugin
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
+
+                //console.log("");
 
                 //for key
                 String key = "";
