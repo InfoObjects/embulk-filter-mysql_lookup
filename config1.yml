@@ -28,7 +28,7 @@ filters:
       - id
       - country_code
     new_columns:
-      - { name: country_address, type: string }
+      - { name: counry_address, type: string }
       - { name: country_code,type: double}
 out:
   type: file
