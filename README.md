@@ -118,6 +118,12 @@ ID  Name                Age Address         City        Country Salary  Pin     
 Notes:
 1. mapping_from attribute should be in same order as mentioned in input file.
    ​
+2. This attribute needs to be provided(in input plugin) while using jdbc input plugin in case datatype is Number:------
+``` 
+     column_options: 
+     id: {value_type: long}
+```
+3. Matching columns data types must be int,long and String
 ## Development
 ​
 Run example:
