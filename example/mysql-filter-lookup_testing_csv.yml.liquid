@@ -1,0 +1,47 @@
+exec:
+  max_threads: 1
+  min_output_tasks: 1
+in:
+  type: file
+  path_prefix: "C:/Users/Ayush Nigam/Desktop/New folder/database_table_1.csv"
+  parser:
+    charset: UTF-8
+    type: csv
+    delimiter: ','
+    quote: '"'
+    header_line: true
+    columns:
+     - { name: id, type: long }
+     - { name: name, type: string }
+     - { name: age, type: string }
+     - { name: address, type: string }
+     - { name: city, type: string }
+     - { name: country, type: string }
+     - { name: salary, type: long }
+filters:
+  - type: mysql_lookup
+    host: localhost
+    port: 3306
+    database: test
+    table_name: lookup_table
+    username: root
+    password: 'passsword'
+    mapping_from:
+    - id
+    - name
+    mapping_to:
+    - id
+    - name
+    new_columns:
+     - { name: pin, type: string }
+     - { name: gender, type: string }
+     - { name: phone_number, type: string }
+
+out:
+  type: mysql
+  host: localhost
+  user: root
+  password: 'passsword'
+  database: test
+  table: output_table_3
+  mode: truncate_insert

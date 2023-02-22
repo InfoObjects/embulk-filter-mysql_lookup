@@ -1,0 +1,37 @@
+exec:
+  max_threads: 1
+  min_output_tasks: 1
+in:
+  type: mysql
+  host: localhost
+  user: root
+  password: 'passsword'
+  database: test
+  table: database_table
+filters:
+  - type: mysql_lookup
+    host: localhost
+    port: 3306
+    database: test
+    table_name: lookup_table
+    username: root
+    password: 'passsword'
+    mapping_from:
+    - id
+    - name
+    mapping_to:
+    - id
+    - name
+    new_columns:
+     - { name: pin, type: string }
+     - { name: gender, type: string }
+     - { name: phone_number, type: string }
+
+out:
+  type: mysql
+  host: localhost
+  user: root
+  password: 'passsword'
+  database: test
+  table: output_table_1
+  mode: truncate_insert

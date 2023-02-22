@@ -185,7 +185,8 @@ public class MysqlLookupFilterPlugin
             for (ColumnConfig columnConfig : task.getNewColumns().getColumns()) {
                 columnConfigList.add(columnConfig);
             }
-
+            List<String> unmatchedData = new ArrayList<>();
+            List<String> keyColumns = task.getMappingFrom();
             while (reader.nextRecord()) {
 
                 int colNum = 0;
@@ -218,6 +219,8 @@ public class MysqlLookupFilterPlugin
                 List<String> matchedData = new ArrayList<>();
                 if (keyValuePair.containsKey(key)) {
                     matchedData = keyValuePair.get(key);
+                }else{
+                    unmatchedData.add(key);
                 }
 
                 if (matchedData.size() == 0) {
@@ -232,6 +235,18 @@ public class MysqlLookupFilterPlugin
                     }
                 }
                 builder.addRecord();
+            }
+            System.out.println("Unmatched rows.....");
+            System.out.print("Key column names: ");
+            for(int i=0;i<keyColumns.size();i++){
+                System.out.print(keyColumns.get(i));
+                if(i!=keyColumns.size()-1){
+                    System.out.print(",");
+                }
+            }
+            System.out.println();
+            for(int i=0;i<unmatchedData.size();i++){
+                System.out.println(unmatchedData.get(i));
             }
 
         }

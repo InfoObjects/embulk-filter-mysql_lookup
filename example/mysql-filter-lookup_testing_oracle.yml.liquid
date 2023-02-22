@@ -1,0 +1,43 @@
+exec:
+  max_threads: 1
+  min_output_tasks: 1
+in:
+  type: jdbc
+  host: localhost
+  driver_path: "C:/drivers/ojdbc8.jar"
+  driver_class: 'oracle.jdbc.driver.OracleDriver'
+  url: jdbc:oracle:thin:@localhost:1521:orcl
+  user: MYUSER
+  password: ABCD
+  database: DEMO
+  table: database_table
+filters:
+  - type: mysql_lookup
+    host: localhost
+    port: 3306
+    database: test
+    table_name: 
+    username: root
+    password: 'passsword'
+    mapping_from:
+    - id
+    - name
+    mapping_to:
+    - id
+    - name
+    new_columns:
+     - { name: pin, type: string }
+     - { name: gender, type: string }
+     - { name: phone_number, type: string }
+
+out:
+  type: jdbc
+  host: localhost
+  driver_path: "..path../ojdbc8.jar"
+  driver_class: 'oracle.jdbc.driver.OracleDriver'
+  url: jdbc:oracle:thin:@localhost:1521:orcl
+  user: MYUSER
+  password: ABCD
+  database: DEMO
+  table: output_table_1
+  mode: truncate_insert
