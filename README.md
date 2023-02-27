@@ -35,84 +35,91 @@ An Embulk filter plugin for Lookup Transformation with MySQL database
         - **Name-3,Type-3**: Any Name, Type of the name (name: phone_number, type: string) etc ...
 ## Example - columns
 ​
-Input1 for table 1 is as follows :-
+Customer.csv for table 1 is as follows :-
 
 ```
- ID     Name                Age Address         City        Country Salary
- 1      John Doe            25  123 Min St      New York    USA     50000
- 2      Jane Doe            30  456 Market Ave  Los Angeles USA     60000   
- 3      Jim Smith           35  789 Elm St      Chicago     USA     65000
- 4      Sara Lee            40  246 park st     Houseton    USA     70000
- 5      Tom Cruise          45  369 Broadway    New York    USA     75000
- 6      Brad Pitt           50  159 Market St   Los Angeles USA     80000
- 21     Jennifer Aniston    125 753 Main St     Los Angeles USA     155000
- 7      Angelina Jolie      55  753 5th Ave     New York    USA     85000
- 8      Kate Winslet        60  246 main St     London      UK      90000   
- 9      Leonardo DiCaprio   65  369 King St     Los Angeles USA     95000
- 10     Cate Blanchett      70  753 Queen St    Sydney      ""      100000
+id  customer_name       address                     email                       car_name    company
+1   John Doe            123 Main St, Anytown USA    john.doe@example.com        Civic       Honda
+2   Jane Smith          456 Elm St, Anytown USA     jane.smith@example.com      E-Class     Mercedes-Benz
+3   Bob Johnson         789 Oak St, Anytown USA     bob.johnson@example.com     GLE-Class   Mercedes-Benz
+4   Amanda Hernandez    999 Cedar St, Anytown USA   amanda.hernandez@example.com 911        119
+5   Tom Brown           567 Pine St, Anytown USA    tom.brown@example.com       C-Class     Mercedes-Benz
+6   Samantha Davis      890 Cedar St, Anytown USA   samantha.davis@example.com  Civic       Honda
+7   Mike Wilson         1234 Spruce St, Anytown USA mike.wilson@example.com     GLE-Class   Mercedes-Benz
+8   Jason Brown         888 Pine St, Anytown USA    jason.brown@example.com     911         Porsche
+9   David Rodriguez     9010 Oak St, Anytown USA    david.rodriguez@example.com GLC-Class   Mercedes-Benz
+10  Mark Davis          666 Spruce St, Anytown USA  mark.davis@example.com      C-Class     Mercedes-Benz
+11  Chris Thompson      222 Cedar St, Anytown USA   chris.thompson@example.com  Cayenne     Porsche
+12  Linda Young         555 Birch St, Anytown USA   linda.young@example.com     RAV4
+13  Kevin Hernandez     444 Maple St, Anytown USA   kevin.hernandez@example.com 911         119
 ```
 
-Input2 for table 2 is as follows :-
+Car.csv for table 2 is as follows :-
 
 ```
-ID  Name                Pin     Gender  Phone_Number
-1   John Doe            11111   Male    111-111-1111
-2   Jane Doe            22222   Female  222-222-2222
-3   Jim Smith           33333   Male    333-333-3333
-4   Maria Begum         44444   Female  444-444-4444
-5   Tom Cruise          55555   Male    555-555-5555
-6   Brad Pitt           66666   Female  666-666-6666
-7   Angelina Jolie      77777   Male    777-777-7777
-8   Kate Winslet        88888   Female  888-888-8888
-9   Leonardo Dicaprio   99999   Male    999-999-9999
-10  Krrish Jordan       12345   Male    123-456-7890
+car_id  model       brand            category   fuel_capacity  
+87      GLE-Class   Mercedes-Benz   SUV         80
+101     Cayenne     Porsche         SUV         75
+119     911         Porsche         Sports Car  64
+205     Accord      Honda           Sedan       56
+334     Pilot       Honda           SUV         70
+434     CR-v        Honda           SUV         64      
+559     C-Class     Mercedes-Benz   Sedan       66
+603     Civic       Honda           Sedan       42
+697     E-Class     Mercedes-Benz   Sedan       72
+812     GLC-Class   Mercedes-Benz   Sedan       68
+
+
 ```
 
 As shown in yaml below, columns mentioned in mapping_from will be mapped with columns mentioned in mapping_to      
 ie:
 
-
-ID : ID                      
-Name : Name
+car_name : model                       
+company : brand
 
 After successful mapping an Output.csv file containing the columns mentioned in new_columns will be generated
 
 Output File generated :-
 
 ```
-ID  Name                Age Address         City        Country Salary  Pin     Gender  Phone_Number
-1   John Doe            25  123 Main St     New York    USA     50000   11111   Male    111-111-1111
-2   Jane Doe            30  456 Market Ave  Los Angeles USA     60000   22222   Female  222-222-2222
-3   Jim Smith           35  789 Elm St      Chicago     USA     65000   33333   Male    333-333-3333 
-4   Sara Lee            40  246 Park St     Houston     USA     70000   
-5   Tom Cruise          45  369 Broadway    New york    USA     75000   55555   Male    555-555-5555
-6   Brad Pitt           50  159 Market St   Los Angeles USA     80000   66666   Female  666-666-6666
-21  Jennifer Aniston    125 753 Main St     Los Angeles USA     155000
-7   Angelina Jolie      55  753 5th Ave     New York    USA     85000   77777   Male    777-777-7777
-8   Kate Winslet        60  246 main St     Landon      UK      90000   88888   Female  888-888-8888
-9   Leonardo DiCaprio   65  369 King St     Los Angeles USA     95000   99999   Male    999-999-9999
-10  Cate Blanchett      70  753 Queen       Sydney      \\""    100000   
+id  customer_name       address                     email                       car_name    company         car_id  category   fuel_capacity  
+1   John Doe            123 Main St, Anytown USA    john.doe@example.com        Civic       Honda           603     Sedan       42
+2   Jane Smith          456 Elm St, Anytown USA     jane.smith@example.com      E-Class     Mercedes-Benz   697     Sedan       72 
+3   Bob Johnson         789 Oak St, Anytown USA     bob.johnson@example.com     GLE-Class   Mercedes-Benz   87      SUV         80
+4   Amanda Hernandez    999 Cedar St, Anytown USA   amanda.hernandez@example.com 911        119              0         
+5   Tom Brown           567 Pine St, Anytown USA    tom.brown@example.com       C-Class     Mercedes-Benz   559     Sedan       66   
+6   Samantha Davis      890 Cedar St, Anytown USA   samantha.davis@example.com  Civic       Honda           603     Sedan       42   
+7   Mike Wilson         1234 Spruce St, Anytown USA mike.wilson@example.com     GLE-Class   Mercedes-Benz   87      SUV         80   
+8   Jason Brown         888 Pine St, Anytown USA    jason.brown@example.com     911         Porsche         119     Sport Car   64   
+9   David Rodriguez     9010 Oak St, Anytown USA    david.rodriguez@example.com GLC-Class   Mercedes-Benz   812     SUV         68
+10  Mark Davis          666 Spruce St, Anytown USA  mark.davis@example.com      C-Class     Mercedes-Benz   559     Sedan       66   
+11  Chris Thompson      222 Cedar St, Anytown USA   chris.thompson@example.com  Cayenne     Porsche         101     SUV         75   
+12  Linda Young         555 Birch St, Anytown USA   linda.young@example.com     RAV4        \N               0  
+13  Kevin Hernandez     444 Maple St, Anytown USA   kevin.hernandez@example.com 911         119              0  
 ```
 ​
 ​
 ​
 ```yaml
- - type: mysql_lookup
-   host: localhost
-   port: 1433
-   database: test
-   table_name: country_details
-   username: root
-   password: root
-   mapping_from:
-   - country_code
-   - country_name
-   mapping_to:
-   - id
-   - country_address
-   new_columns:
-   - { name: country_GDP, type: string }
-   - { name: country_population, type: string }
+ filters:
+   - type: mysql_lookup
+     host: localhost
+     port: 3306
+     database: test
+     table_name: car
+     username: root
+     password: 'passsword'
+     mapping_from:
+       - car_name
+       - company
+     mapping_to:
+       - model
+       - brand
+     new_columns:
+       - { name: car_id, type: string }
+       - { name: category, type: string }
+       - { name: fuel_capacity, type: string }
 ```
 ​
 Notes:

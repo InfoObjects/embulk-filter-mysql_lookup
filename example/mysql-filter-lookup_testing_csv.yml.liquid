@@ -3,7 +3,7 @@ exec:
   min_output_tasks: 1
 in:
   type: file
-  path_prefix: "..path../database_table.csv"
+  path_prefix: "..path../customer.csv"
   parser:
     charset: UTF-8
     type: csv
@@ -12,36 +12,43 @@ in:
     header_line: true
     columns:
      - { name: id, type: long }
-     - { name: name, type: string }
-     - { name: age, type: string }
+     - { name: customer_name, type: string }
      - { name: address, type: string }
-     - { name: city, type: string }
-     - { name: country, type: string }
-     - { name: salary, type: long }
+     - { name: email, type: string }
+     - { name: car_name, type: string }
+     - { name: company, type: string }
 filters:
   - type: mysql_lookup
     host: localhost
     port: 3306
     database: test
-    table_name: lookup_table
+    table_name: car
     username: root
     password: 'passsword'
     mapping_from:
-    - id
-    - name
+    - car_name
+    - company
     mapping_to:
-    - id
-    - name
+    - model
+    - brand
     new_columns:
-     - { name: pin, type: string }
-     - { name: gender, type: string }
-     - { name: phone_number, type: string }
+     - { name: car_id, type: string }
+     - { name: category, type: string }
+     - { name: fuel_capacity, type: string }
+
 
 out:
-  type: mysql
-  host: localhost
-  user: root
-  password: 'passsword'
-  database: test
-  table: output_table
-  mode: truncate_insert
+  type: file
+  path_prefix: "..path../output.csv"
+  file_ext: csv
+  formatter:
+    type: csv
+    delimiter: ","
+    newline: CRLF
+    newline_in_field: LF
+    charset: UTF-8
+    quote_policy: MINIMAL
+    quote: '"'
+    escape: "\\"
+    null_string: "\\N"
+    default_timezone: 'UTC'
