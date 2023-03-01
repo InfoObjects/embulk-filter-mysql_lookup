@@ -66,6 +66,11 @@ public class DatabaseConnection {
                 return mysqlJdbcDriver.get();
             }
 
+            if (driverPath.isPresent()) {
+                logger.info(
+                        "\"driver_path\" is set to load the MySQL JDBC driver class \"{}\". Adding it to classpath.", className);
+                this.addDriverJarToClasspath(driverPath.get());
+            }
             try {
                 // If the class is found from the ClassLoader of the plugin, that is prioritized the highest.
                 final Class<? extends java.sql.Driver> found = loadJdbcDriverClassForName(className);
@@ -79,46 +84,45 @@ public class DatabaseConnection {
                 return found;
             }
             catch (final ClassNotFoundException ex) {
-                // Pass-through once.
+                //throw new ConfigException("The MySQL JDBC driver for the class \"" + className + "\" is not found.", ex);
             }
-
-            if (driverPath.isPresent()) {
+            final File root = this.findPluginRoot();
+            final File driverLib = new File(root, "default_jdbc_driver");
+            final File[] files = driverLib.listFiles(new FileFilter() {
+                @Override
+                public boolean accept(final File file)
+                {
+                    return file.isFile() && file.getName().endsWith(".jar");
+                }
+            });
+            if (files == null || files.length == 0) {
+                throw new ConfigException(new ClassNotFoundException(
+                        "The MySQL JDBC driver for the class \"" + className + "\" is not found"
+                                + " in \"default_jdbc_driver\" (" + root.getAbsolutePath() + ")."));
+            }
+            for (final File file : files) {
                 logger.info(
-                        "\"driver_path\" is set to load the MySQL JDBC driver class \"{}\". Adding it to classpath.", className);
-                this.addDriverJarToClasspath(driverPath.get());
-            }
-            else {
-                final File root = this.findPluginRoot();
-                final File driverLib = new File(root, "default_jdbc_driver");
-                final File[] files = driverLib.listFiles(new FileFilter() {
-                    @Override
-                    public boolean accept(final File file)
-                    {
-                        return file.isFile() && file.getName().endsWith(".jar");
-                    }
-                });
-                if (files == null || files.length == 0) {
-                    throw new ConfigException(new ClassNotFoundException(
-                            "The MySQL JDBC driver for the class \"" + className + "\" is not found"
-                                    + " in \"default_jdbc_driver\" (" + root.getAbsolutePath() + ")."));
-                }
-                for (final File file : files) {
-                    logger.info(
-                            "The MySQL JDBC driver for the class \"{}\" is expected to be found"
-                                    + " in \"default_jdbc_driver\" at {}.", className, file.getAbsolutePath());
-                    this.addDriverJarToClasspath(file.getAbsolutePath());
-                }
+                        "The MySQL JDBC driver for the class \"{}\" is expected to be found"
+                                + " in \"default_jdbc_driver\" at {}.", className, file.getAbsolutePath());
+                this.addDriverJarToClasspath(file.getAbsolutePath());
             }
 
             try {
-                // Retrying to find the class from the ClassLoader of the plugin.
+                // If the class is found from the ClassLoader of the plugin, that is prioritized the highest.
                 final Class<? extends java.sql.Driver> found = loadJdbcDriverClassForName(className);
                 mysqlJdbcDriver.compareAndSet(null, found);
+
+                if (driverPath.isPresent()) {
+                    logger.warn(
+                            "\"driver_path\" is set while the MySQL JDBC driver class \"{}\" is found from the PluginClassLoader."
+                                    + " \"driver_path\" is ignored.", className);
+                }
                 return found;
             }
             catch (final ClassNotFoundException ex) {
                 throw new ConfigException("The MySQL JDBC driver for the class \"" + className + "\" is not found.", ex);
             }
+
         }
     }
 
