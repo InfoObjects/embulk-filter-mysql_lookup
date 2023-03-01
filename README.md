@@ -123,9 +123,9 @@ id  customer_name       address                     email                       
 ```
 ​
 Notes:
-1. mapping_from attribute should be in same order as mentioned in input file.
+1. mapping_from attribute should be in the same order as mentioned in the input file.
    ​
-2. This attribute needs to be provided(in input plugin) while using jdbc input plugin in case datatype is Number:------
+2. In case with JDBC plugin if any integer column returned as float/decimal then use to cast that column as long as below
 ``` 
      column_options: 
      id: {value_type: long}
