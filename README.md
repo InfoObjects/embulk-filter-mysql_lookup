@@ -14,25 +14,25 @@ An Embulk filter plugin for Lookup Transformation with MySQL database
 ​
 - **mysql_lookup**: Required attributes for the LookUp Filter Plugin -
     - **filters**:
-        - **type**: Name of lookup type (required)
-    - **driver_path**: path to the jar file of the MySQL JDBC driver. If not set, the bundled JDBC driver (MySQL Connector/J 8.0.19) will be used (string)
-    - **driver_class**: Here we can provide driver class name,if not set,the com.mysql.cj.jdbc.Driver class will be used
-    - **host**: database host (example `localhost`) (required)
-    - **port**: database port (example port for mssql `1433`) (required
-    - **database**: database name (required)
-    - **table_name**: table name of your database (required)
-    - **username**: username for your database (required)
-    - **password**: password for database (required)
-    - **mapping_from**: (Name of columns to be matched with table 2 columns) (required)
-        - **Name of column-1**: column name-1 from input file
-        - **Name of column-2**: column name-2 from input file etc ...
-    - **mapping_to**:   (Name of columns to be matched with table 1 columns) (required)
-        - **Name of column-1**: column name-1 from input file
-        - **Name of column-2**: column name-2 from input file
-    - **new_columns**:   (New generated column names) (required)
-        - **Name-1,Type-1**: Any Name, Type of the name (name: pin, type: string)
-        - **Name-2,Type-2**: Any Name, Type of the name (name: gender, type: string)
-        - **Name-3,Type-3**: Any Name, Type of the name (name: phone_number, type: string) etc ...
+      - **type**: Name of lookup type (required)
+      - **driver_path**: path to the jar file of the MySQL JDBC driver. If not set, the bundled JDBC driver (MySQL Connector/J 8.0.19) will be used (string)
+      - **driver_class**: Here we can provide driver class name,if not set,the com.mysql.cj.jdbc.Driver class will be used
+      - **host**: database host (example `localhost`) (required)
+      - **port**: database port (example port for mssql `1433`) (required
+      - **database**: database name (required)
+      - **table_name**: table name of your database (required)
+      - **username**: username for your database (required)
+      - **password**: password for database (required)
+      - **mapping_from**: (Name of columns to be matched with table 2 columns) (required)
+          - **Name of column-1**: column name-1 from input file
+          - **Name of column-2**: column name-2 from input file etc ...
+      - **mapping_to**:   (Name of columns to be matched with table 1 columns) (required)
+          - **Name of column-1**: column name-1 from input file
+          - **Name of column-2**: column name-2 from input file
+      - **new_columns**:   (New generated column names) (required)
+          - **Name-1,Type-1**: Any Name, Type of the name (name: pin, type: string)
+          - **Name-2,Type-2**: Any Name, Type of the name (name: gender, type: string)
+          - **Name-3,Type-3**: Any Name, Type of the name (name: phone_number, type: string) etc ...
 ## Example - columns
 ​
 Customer.csv for table 1 is as follows :-
