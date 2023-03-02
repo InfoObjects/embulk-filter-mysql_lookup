@@ -11,7 +11,7 @@ From strategy, to implementation, to ongoing managed services, Infoobjects creat
 An Embulk filter plugin for Lookup Transformation with MySQL database
 ​
 ## Configuration
-​
+
 - **mysql_lookup**: Required attributes for the LookUp Filter Plugin -
     - **filters**:
       - **type**: Name of lookup type (required)
