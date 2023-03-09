@@ -157,6 +157,13 @@ Release gem:
 ```
 $ ./gradlew gemPush
 ```
+
+## Embulk YAML Config Generator
+
+[Embulk YAML Config Generator Tool](https://github.com/InfoObjects/embulk-yaml-config-generator), is another initiative by InfoObjects, can be used to generate the Embulk YAML configuration from the UI. However by default it has certain plugins integrated but code configuration can be changed to add more plugins.
+Following is the link to open the repo :-
+https://github.com/InfoObjects/embulk-yaml-config-generator
+
 ## Licensing
 
 InfoObjects [license](LICENSE) (MIT License)
